@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 "use strict";
 
 const guess = document.querySelector("#user-number");
@@ -8,32 +9,40 @@ const intentNumber = document.querySelector(".intent-number");
 const randonNumber = () => Math.ceil(Math.random() * 100);
 
 const randonNumberGenerate = randonNumber();
-
+console.log(randonNumberGenerate);
 const isValidNumber = number => {
   if (number >= 0 && number <= 100) {
     return true;
   }
 };
 
-const intentTimes = () =>
-  (intentNumber.innerHTML = parseInt(intentNumber.innerHTML) + 1);
+const printText = (element, text) => {
+  element.innerHTML = text;
+};
+
+let intents = 0;
+const intentTimes = () =>{
+  intents++;
+  printText(intentNumber, intents);
+};
+
 
 const messagerGenerate = () => {
   if (randonNumberGenerate === parseInt(guess.value)) {
-    outputText.innerHTML = "¡HAS GANADO, CAMPEONA!";
-  } else if (randonNumberGenerate > guess.value) {
-    outputText.innerHTML = "demasiado bajo";
+    printText(outputText, "¡HAS GANADO, CAMPEONA!");
+  } else if (randonNumberGenerate > parseInt(guess.value)) {
+    printText(outputText, "demasiado bajo");
   } else {
-    outputText.innerHTML = "demasiado alto";
+    printText(outputText, "demasiado alto");
   }
 };
 
 const helpGuess = () => {
-  if (isValidNumber(guess.value)) {
+  if (isValidNumber(parseInt(guess.value))) {
     messagerGenerate();
     intentTimes();
   } else {
-    outputText.innerHTML = "Escribe un número y dale a Prueba";
+    printText(outputText, "Escribe un número y dale a Prueba");
   }
 };
 
